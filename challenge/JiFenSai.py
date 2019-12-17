@@ -9,7 +9,7 @@ class JiFenSai:
         ClickHelper.click(370, 280, 1)
 
         while True:
-            if ClickHelper.exist('src/challenge/ji-fen-sai/fighting-finish.png', confidence=0.95):
+            if ClickHelper.exist('src/challenge/ji-fen-sai/fighting-finish.png', confidence=0.99):
                 print('本页已全部挑战完毕, 尝试刷新')
                 refreshed = JiFenSai.refresh()
                 if not refreshed:
@@ -43,7 +43,7 @@ class JiFenSai:
 
     @staticmethod
     def refresh():
-        if ClickHelper.exist('src/challenge/ji-fen-sai/fresh-none.png'):
+        if ClickHelper.exist('src/challenge/ji-fen-sai/fresh-none.png', confidence=0.98):
             print('没有刷新次数了')
             return False
 

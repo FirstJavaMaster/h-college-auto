@@ -32,7 +32,8 @@ class Team:
             result = None
 
             if ClickHelper.exist('src/send-team/fighting-success-1.png') or ClickHelper.exist(
-                    'src/send-team/fighting-success-2.png'):
+                    'src/send-team/fighting-success-2.png') or ClickHelper.exist(
+                'src/send-team/fighting-success-3.png') or ClickHelper.exist('src/send-team/fighting-success-4.png'):
                 result = True
             elif ClickHelper.exist('src/send-team/fighting-fail-1.png') or ClickHelper.exist(
                     'src/send-team/fighting-fail-2.png'):

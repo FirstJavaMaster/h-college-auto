@@ -8,12 +8,13 @@ class WuZiChouBei:
     @staticmethod
     def run():
         # 进入主界面
+        print('开始物资筹备')
         ClickHelper.click(100, 850)
 
         while True:
             chance_number = FightingCountHelper.get_chance_number()
             if chance_number == 0:
-                print('挑战次数已用完, 退出物资筹备')
+                print('挑战次数已用完, 退出')
                 ClickHelper.try_return()
                 break
 

@@ -27,7 +27,7 @@ class ClickHelper:
         time.sleep(wait_second)
 
     @staticmethod
-    def click_pic(pic_path, already_pic_path=None, wait_second=0.5, confidence=0.9):
+    def click_pic(pic_path, already_pic_path=None, wait_second=0.5, confidence=0.95):
         if pic_path is None:
             raise RuntimeError('请传入图片路径')
 

@@ -10,6 +10,7 @@ class YuanSuSouJi:
     @staticmethod
     def run():
         # 进入主界面
+        print('开始元素搜集')
         ClickHelper.click(270, 850, wait_second=1)
 
         position_list = [
@@ -32,7 +33,7 @@ class YuanSuSouJi:
             elif chance_number == 1:
                 index = index_list[2]
             else:
-                print('挑战次数已用完, 退出元素搜集')
+                print('挑战次数已用完, 退出')
                 ClickHelper.try_return()
                 break
 
