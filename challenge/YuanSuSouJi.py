@@ -10,7 +10,7 @@ class YuanSuSouJi:
     @staticmethod
     def run():
         # 进入主界面
-        ClickHelper.click(270, 850)
+        ClickHelper.click(270, 850, wait_second=1)
 
         position_list = [
             {'x': 470, 'y': 230},

@@ -28,13 +28,4 @@ class Challenge:
         # WuZiChouBei.run()
 
         # 开始元素搜集
-        YuanSuSouJi.run()
-
-    @staticmethod
-    def get_chance_number():
-        if ClickHelper.exist('src/challenge/chance-0.png', confidence=0.95):
-            return 0
-        elif ClickHelper.exist('src/challenge/chance-3.png', confidence=0.95):
-            return 3
-        else:
-            return 0
+        # YuanSuSouJi.run()
