@@ -29,15 +29,17 @@ class Team:
         while True:
             time.sleep(0.5)
 
-            success = ClickHelper.exist('src/send-team/fighting-end-success.png')
-            fail = ClickHelper.exist('src/send-team/fighting-end-fail.png')
-            count = ClickHelper.exist('src/send-team/fighting-end-count.png')
-            if success or fail:
-                print(' 战斗%s' % ('胜利' if success else '失败'))
-                ClickHelper.try_return()
-                break
-            elif count:
-                print(' 战斗结束')
+            result = None
+
+            if ClickHelper.exist('src/send-team/fighting-success-1.png') or ClickHelper.exist(
+                    'src/send-team/fighting-success-2.png'):
+                result = True
+            elif ClickHelper.exist('src/send-team/fighting-fail-1.png') or ClickHelper.exist(
+                    'src/send-team/fighting-fail-2.png'):
+                result = False
+
+            if result is not None:
+                print(' 战斗%s' % ('胜利' if result else '失败'))
                 ClickHelper.try_return()
                 break
             else:

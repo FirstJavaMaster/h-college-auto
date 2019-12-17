@@ -5,6 +5,7 @@ from challenge.JiXianNiLian import JiXianNiLian
 from challenge.QiangWeiSai import QiangWeiSai
 from challenge.WuZiChouBei import WuZiChouBei
 from challenge.YuanSuSouJi import YuanSuSouJi
+from challenge.ZhiYeKaoHe import ZhiYeKaoHe
 
 
 class Challenge:
@@ -16,16 +17,19 @@ class Challenge:
         ClickHelper.click_pic('src/challenge/challenge.png', 'src/challenge/challenge-already.png')
 
         # 开始积分赛
-        # JiFenSai.run()
+        JiFenSai.run()
 
         # 开始抢位赛
-        # QiangWeiSai.run()
+        QiangWeiSai.run()
 
         # 开始极限拟练
-        # JiXianNiLian.run()
+        JiXianNiLian.run()
 
         # 开始物资筹备
-        # WuZiChouBei.run()
+        WuZiChouBei.run()
 
         # 开始元素搜集
-        # YuanSuSouJi.run()
+        YuanSuSouJi.run()
+
+        # 开始职业考核
+        ZhiYeKaoHe.run()
