@@ -9,3 +9,7 @@ class Timer:
 
     def get_duration(self):
         return (datetime.now() - self.start_time).seconds
+
+    def get_duration_string(self):
+        duration = self.get_duration()
+        return '%ds' % duration

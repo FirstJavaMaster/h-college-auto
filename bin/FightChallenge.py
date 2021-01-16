@@ -1,0 +1,127 @@
+import time
+from random import choice
+
+from bin.FightHelper import FightHelper
+from bin.PageHelper import PageHelper
+from commons.AutoAdb import AutoAdb
+
+
+class FightChallenge:
+    adb = AutoAdb()
+
+    def run(self):
+        to_page = PageHelper().go_to_challenge_page()
+        if not to_page:
+            return
+        # 物资筹备
+        self.do_good_prepare()
+
+    def do_good_prepare(self):
+        print('检查[物资筹备]的挑战机会 ... ')
+        things = {
+            'good': not self.adb.check('images/challenge/good-prepare/good-none.png', threshold=0.95),
+            'item': not self.adb.check('images/challenge/good-prepare/item-none.png', threshold=0.95),
+            'work': not self.adb.check('images/challenge/good-prepare/work-none.png', threshold=0.95)
+        }
+
+        # if True not in things.values():
+        #     print('各挑战机会均已耗尽. 物资筹备结束!')
+        #     return True
+
+        # 进入子页面
+        self.adb.wait('images/challenge/good-prepare.png').click()
+        if things['good']:
+            self.do_good()
+        if things['item']:
+            self.do_item()
+        if not things['work']:
+            self.do_work()
+        PageHelper().back()
+
+    def do_good(self):
+        print('开始[物资筹备] ... ')
+        self.adb.wait('images/challenge/good-prepare/good.png').click()
+
+        while True:
+            # 检查机会
+            if self.adb.check('images/challenge/challenge-none.png', threshold=0.95):
+                print('机会耗尽, 挑战结束!')
+                PageHelper().back()
+                return True
+
+            # 只做 电池收集
+            self.adb.click_position(900, 300)
+            # 再次判断有没有机会
+            if self.adb.check('images/buy-confirm.png'):
+                print('机会耗尽, 挑战结束!')
+                PageHelper().back(2)
+                return True
+
+            if self.adb.check('images/fight/confirm-1.png'):
+                fight_result = FightHelper().fight()
+                if not fight_result:
+                    print('战斗失败, 中止操作!')
+                    return False
+            time.sleep(1)
+
+    def do_item(self):
+        print('开始[元素收集] ... ')
+        self.adb.wait('images/challenge/good-prepare/item.png').click()
+
+        while True:
+            # 检查机会
+            if self.adb.check('images/challenge/challenge-none.png', threshold=0.95):
+                print('机会耗尽, 挑战结束!')
+                PageHelper().back()
+                return True
+
+            pos_x = 900
+            pox_y = choice([300, 600, 900, 1200, 1500])
+            print('随机选择一项: pos_x:%d, pos_y:%d' % (pos_x, pox_y))
+            self.adb.click_position(pos_x, pox_y)
+
+            # 再次判断有没有机会
+            if self.adb.check('images/buy-confirm.png'):
+                print('机会耗尽, 挑战结束!')
+                PageHelper().back(2)
+                return True
+
+            if self.adb.check('images/fight/confirm-1.png'):
+                fight_result = FightHelper().fight()
+                if not fight_result:
+                    print('战斗失败, 中止操作!')
+                    return False
+            time.sleep(1)
+
+    def do_work(self):
+        print('开始[职业考核] ... ')
+        self.adb.wait('images/challenge/good-prepare/work.png').click()
+
+        while True:
+            # 检查机会
+            if self.adb.check('images/challenge/challenge-none.png', threshold=0.95):
+                print('机会耗尽, 挑战结束!')
+                PageHelper().back()
+                return True
+
+            pos_x = 900
+            pox_y = choice([300, 600, 900])
+            print('随机选择一项: pos_x:%d, pos_y:%d' % (pos_x, pox_y))
+            self.adb.click_position(pos_x, pox_y)
+
+            # 再次判断有没有机会
+            if self.adb.check('images/buy-confirm.png'):
+                print('机会耗尽, 挑战结束!')
+                PageHelper().back(2)
+                return True
+
+            if self.adb.check('images/fight/confirm-1.png'):
+                fight_result = FightHelper().fight()
+                if not fight_result:
+                    print('战斗失败, 中止操作!')
+                    return False
+            time.sleep(1)
+
+
+if __name__ == '__main__':
+    FightChallenge().run()

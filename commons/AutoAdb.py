@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import os
+import time
 
 import cv2
 
@@ -18,6 +19,7 @@ class AutoAdb:
 
     def __init__(self):
         self.adb_path = PathUtils.get_work_dir() + '/adb/adb.exe'
+        self.exec('connect %s' % ConfigUtils.get('adb_host_port'))
 
     def exec(self, raw_command):
         adb_host_port = ConfigUtils.get('adb_host_port')
@@ -51,21 +53,24 @@ class AutoAdb:
         loc = self.get_location(*temp_rel_path_list, threshold=threshold)
         return loc is not None
 
-    def click(self, temp_rel_path, threshold=threshold, wait_time=click_wait_time):
-        loc = self.get_location(temp_rel_path, threshold=threshold)
+    def click(self, *temp_rel_path, threshold=threshold, wait_time=click_wait_time):
+        loc = self.get_location(*temp_rel_path, threshold=threshold)
         if loc is None:
             return False
         return loc.click(wait_time)
 
+    def click_position(self, pos_x, pos_y):
+        Location(self, None, pos_x, pos_y, None).click()
+
     def swipe(self, start_x, start_y, end_x, end_y, duration=1500):
         self.exec('shell input swipe %d %d %d %d %d' % (start_x, start_y, end_x, end_y, duration))
 
-    def wait(self, temp_rel_path, threshold=threshold, max_wait_time=None, episode=None):
+    def wait(self, *temp_rel_path, threshold=threshold, max_wait_time=None, episode=None):
         timer = Timer()
         none_loc = Location(self, None, None, None)
         while True:
             duration = timer.get_duration()
-            print('\r > wait %s ... %ds ' % (temp_rel_path, duration), end='')
+            print('\r >>> wait %s ... %ds ' % (temp_rel_path, duration), end='')
 
             if max_wait_time is not None and 0 < max_wait_time < duration:
                 print(' ×', flush=True)
@@ -80,7 +85,10 @@ class AutoAdb:
                     print('过程方法执行异常')
                     print(e)
 
-            loc = self.get_location(temp_rel_path, threshold=threshold)
-            if loc is not None:
+            loc = self.get_location(*temp_rel_path, threshold=threshold)
+            if loc is None:
+                time.sleep(1)
+                continue
+            else:
                 print(' √', flush=True)
                 return loc
