@@ -1,3 +1,5 @@
+import time
+
 from commons.AutoAdb import AutoAdb
 from commons.Timer import Timer
 
@@ -14,11 +16,15 @@ class FightHelper:
 
         print('\r战斗进行中 ... ', end='')
         timer = Timer()
-        finish_image_list = ['images/fight/finish-success.png', 'images/fight/finish-success-next-stage.png']
+        finish_list_success = ['images/fight/finish-success.png', 'images/fight/finish-success-next-stage.png']
+        finish_list_fail = ['images/fight/finish-fail.png']
         while True:
-            print('\r战斗进行中 ... %s' % timer.get_duration_string(), end='')
-            if not self.adb.check(*finish_image_list):
-                continue
-            print(' 战斗结束\n', flush=True)
-            self.adb.wait(*finish_image_list).click()
-            return True
+            print('\r战斗进行中 ... %s ' % timer.get_duration_string(), end='')
+            if self.adb.click(*finish_list_success):
+                print('战斗结束[成功]\n')
+                return True
+            if self.adb.click(*finish_list_fail):
+                print('战斗结束[失败]\n')
+                return False
+            # 如果还没结束就1秒后再等等
+            time.sleep(1)
