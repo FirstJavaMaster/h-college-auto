@@ -1,3 +1,6 @@
+import time
+
+from bin.FightHelper import FightHelper
 from bin.PageHelper import PageHelper
 from commons.AutoAdb import AutoAdb
 from commons.Timer import Timer
@@ -12,14 +15,18 @@ class FightStage:
 
         timer = Timer()
         while True:
-            if self.adb.click('images/stage-fight/fight-boss.png'):
-                break
-            print('\r寻敌中 ... %ds' % timer.get_duration(), end='', flush=True)
+            if not self.adb.click('images/stage-fight/fight-boss.png'):
+                print('\r寻敌中 ... %s' % timer.get_duration_string(), end='', flush=True)
+                time.sleep(1)
+                continue
 
-        self.adb.wait('images/fight/confirm.png').click()
-        self.adb.wait('images/fight/finish-success.png', 'images/fight/finish-success-next-stage.png').click()
+            timer.init()
+            print('发现boss, 即将开始boss战斗 ... ')
+            fight_result = FightHelper().fight()
+            if not fight_result:
+                print('战斗失败, 中止执行!')
+                return False
 
 
 if __name__ == '__main__':
-    while True:
-        FightStage().run()
+    FightStage().run()

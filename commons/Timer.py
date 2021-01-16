@@ -7,6 +7,9 @@ class Timer:
     def __init__(self):
         self.start_time = datetime.now()
 
+    def init(self):
+        self.start_time = datetime.now()
+
     def get_duration(self):
         return (datetime.now() - self.start_time).seconds
 
