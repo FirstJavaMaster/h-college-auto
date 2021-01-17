@@ -12,9 +12,9 @@ class GoodPrepare:
     def run(self):
         print('检查[物资筹备]的挑战机会 ... ')
         things = {
-            'good': not self.adb.check('images/challenge/good-prepare/good-none.png', threshold=0.95),
-            'item': not self.adb.check('images/challenge/good-prepare/item-none.png', threshold=0.95),
-            'work': not self.adb.check('images/challenge/good-prepare/work-none.png', threshold=0.95)
+            'good': not self.adb.check('images/challenge/good-prepare/good-none.png', threshold=0.98),
+            'item': not self.adb.check('images/challenge/good-prepare/item-none.png', threshold=0.98),
+            'work': not self.adb.check('images/challenge/good-prepare/work-none.png', threshold=0.98)
         }
 
         if True not in things.values():
@@ -27,7 +27,7 @@ class GoodPrepare:
             self.do_good()
         if things['item']:
             self.do_item()
-        if not things['work']:
+        if things['work']:
             self.do_work()
         PageHelper().back()
 
