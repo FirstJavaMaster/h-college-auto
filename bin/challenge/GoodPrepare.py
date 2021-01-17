@@ -6,17 +6,10 @@ from bin.PageHelper import PageHelper
 from commons.AutoAdb import AutoAdb
 
 
-class FightChallenge:
+class GoodPrepare:
     adb = AutoAdb()
 
     def run(self):
-        to_page = PageHelper().go_to_challenge_page()
-        if not to_page:
-            return
-        # 物资筹备
-        self.do_good_prepare()
-
-    def do_good_prepare(self):
         print('检查[物资筹备]的挑战机会 ... ')
         things = {
             'good': not self.adb.check('images/challenge/good-prepare/good-none.png', threshold=0.95),
@@ -24,12 +17,12 @@ class FightChallenge:
             'work': not self.adb.check('images/challenge/good-prepare/work-none.png', threshold=0.95)
         }
 
-        # if True not in things.values():
-        #     print('各挑战机会均已耗尽. 物资筹备结束!')
-        #     return True
+        if True not in things.values():
+            print('各挑战机会均已耗尽. 物资筹备结束!')
+            return True
 
         # 进入子页面
-        self.adb.wait('images/challenge/good-prepare.png').click()
+        self.adb.click_position(250, 350)
         if things['good']:
             self.do_good()
         if things['item']:
@@ -40,7 +33,7 @@ class FightChallenge:
 
     def do_good(self):
         print('开始[物资筹备] ... ')
-        self.adb.wait('images/challenge/good-prepare/good.png').click()
+        self.adb.click_position(500, 450)
 
         while True:
             # 检查机会
@@ -66,7 +59,7 @@ class FightChallenge:
 
     def do_item(self):
         print('开始[元素收集] ... ')
-        self.adb.wait('images/challenge/good-prepare/item.png').click()
+        self.adb.click_position(500, 900)
 
         while True:
             # 检查机会
@@ -95,7 +88,7 @@ class FightChallenge:
 
     def do_work(self):
         print('开始[职业考核] ... ')
-        self.adb.wait('images/challenge/good-prepare/work.png').click()
+        self.adb.click_position(500, 1400)
 
         while True:
             # 检查机会
@@ -124,4 +117,4 @@ class FightChallenge:
 
 
 if __name__ == '__main__':
-    FightChallenge().run()
+    GoodPrepare().run()

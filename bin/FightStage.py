@@ -24,8 +24,7 @@ class FightStage:
             print('发现boss, 即将开始boss战斗 ... ')
             fight_result = FightHelper().fight()
             if not fight_result:
-                print('战斗失败, 中止执行!')
-                return False
+                print('战斗失败, 重试')
 
 
 if __name__ == '__main__':
