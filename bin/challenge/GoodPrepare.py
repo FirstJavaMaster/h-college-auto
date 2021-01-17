@@ -37,7 +37,7 @@ class GoodPrepare:
 
         while True:
             # 检查机会
-            if self.adb.check('images/challenge/challenge-none.png', threshold=0.95):
+            if self.adb.check('images/challenge/good-prepare/challenge-none.png', threshold=0.95):
                 print('机会耗尽, 挑战结束!')
                 PageHelper().back()
                 return True
@@ -63,7 +63,7 @@ class GoodPrepare:
 
         while True:
             # 检查机会
-            if self.adb.check('images/challenge/challenge-none.png', threshold=0.95):
+            if self.adb.check('images/challenge/good-prepare/challenge-none.png', threshold=0.95):
                 print('机会耗尽, 挑战结束!')
                 PageHelper().back()
                 return True
@@ -92,7 +92,7 @@ class GoodPrepare:
 
         while True:
             # 检查机会
-            if self.adb.check('images/challenge/challenge-none.png', threshold=0.95):
+            if self.adb.check('images/challenge/good-prepare/challenge-none.png', threshold=0.95):
                 print('机会耗尽, 挑战结束!')
                 PageHelper().back()
                 return True

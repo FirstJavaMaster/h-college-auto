@@ -9,29 +9,14 @@ class BattleDrill:
     adb = AutoAdb()
 
     def run(self):
-        print('检查[对战演习]的挑战机会 ... ')
-        # things = {
-        #     'points': not self.adb.check('images/challenge/good-prepare/good-none.png', threshold=0.95),
-        #     'position': not self.adb.check('images/challenge/good-prepare/item-none.png', threshold=0.95),
-        #     'team': not self.adb.check('images/challenge/good-prepare/work-none.png', threshold=0.95)
-        # }
-        #
-        # if True not in things.values():
-        #     print('各挑战机会均已耗尽. 物资筹备结束!')
-        #     return True
-        #
-        # # 进入 对战演习 页面
-        # self.adb.click_position(250, 750)
-        # if things['points']:
-        #     self.do_points()
-        # if things['position']:
-        #     self.do_position()
-        # if not things['team']:
-        #     self.do_team()
-        # PageHelper().back()
-
-        # self.adb.click_position(250, 750)
+        # 进入 对战演习
+        self.adb.click_position(250, 750)
+        # 做每个任务
+        self.do_points()
         self.do_position()
+        self.do_team()
+        # 返回
+        PageHelper().back()
 
     def do_points(self):
         print('开始[积分赛] ... ')
@@ -111,6 +96,16 @@ class BattleDrill:
 
     def do_team(self):
         print('开始[团队赛] ... ')
+        self.adb.click_position(200, 1600)
+
+        # 点击领取奖励
+        self.adb.wait('images/challenge/team/take-award.png').click()
+        # 判断是否休赛
+        if self.adb.check('images/challenge/team/break-time.png'):
+            print('休赛期. 结束[团队赛]!')
+            PageHelper().back()
+            return True
+        # todo 比赛
         pass
 
 
