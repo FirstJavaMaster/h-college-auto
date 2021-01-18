@@ -20,11 +20,11 @@ class FightStage:
                 time.sleep(1)
                 continue
 
-            timer.init()
             print('发现boss, 即将开始boss战斗 ... ')
             fight_result = FightHelper().fight()
             if not fight_result:
                 print('战斗失败, 重试')
+            timer.init()
 
 
 if __name__ == '__main__':
