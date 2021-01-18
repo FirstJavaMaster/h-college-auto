@@ -24,14 +24,14 @@ class BattleDrill:
 
         while True:
             # 名单中的6个均已挑战成功
-            fight_six = self.adb.check('images/challenge/points/six-six.png', threshold=0.95)
+            fight_six = self.adb.check('images/challenge/points/six-six.png', threshold=0.99)
             # 如果胜场不到6, 则寻找挑战按钮
             if not fight_six:
                 self.do_points_in_unit()
                 continue
             print('已经6胜')
             # 如果到6次了, 则看是否还有刷新次数
-            none_chance = self.adb.check('images/challenge/points/none-chance.png', threshold=0.95)
+            none_chance = self.adb.check('images/challenge/points/none-chance.png', threshold=0.99)
             if none_chance:
                 print('已经没有刷新次数. 退出[积分赛]!')
                 self.do_points_receive_award()
@@ -81,7 +81,7 @@ class BattleDrill:
 
         while True:
             # 检查剩余次数
-            none_chance = self.adb.check('images/challenge/position/none-chance.png')
+            none_chance = self.adb.check('images/challenge/position/none-chance.png', threshold=0.999)
             if none_chance:
                 print('次数耗尽. [抢位赛]结束!')
                 PageHelper().back()
@@ -92,7 +92,7 @@ class BattleDrill:
             if self.adb.check('images/challenge/position/none-chance-need-money-text.png'):
                 PageHelper().back(2)
                 return True
-            return FightHelper().fight()
+            FightHelper().fight()
 
     def do_team(self):
         print('开始[团队赛] ... ')
