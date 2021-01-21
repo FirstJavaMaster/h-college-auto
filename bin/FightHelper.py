@@ -1,5 +1,6 @@
 import time
 
+from bin.PageHelper import PageHelper
 from commons.AutoAdb import AutoAdb
 from commons.Timer import Timer
 
@@ -17,8 +18,8 @@ class FightHelper:
 
         print('\r战斗进行中 ... ', end='')
         timer = Timer()
-        finish_list_success = ['images/fight/finish-success.png', 'images/fight/finish-success-next-stage.png']
-        finish_list_fail = ['images/fight/finish-fail.png']
+        finish_list_success = ['images/fight/finish-success-text.png', 'images/fight/finish-success-next-stage.png']
+        finish_list_fail = ['images/fight/finish-fail-text.png']
         while True:
             print('\r战斗进行中 ... %s ' % timer.get_duration_string(), end='')
             if self.adb.click(*finish_list_success):
@@ -27,9 +28,13 @@ class FightHelper:
             if self.adb.click(*finish_list_fail):
                 print('战斗结束[失败]\n')
                 return False
+            if self.adb.check('images/fight/finish-fail.png'):
+                print('战斗结束[失败]\n')
+                PageHelper().back()
+                return False
             if self.adb.check('images/fight/finish.png'):
-                self.adb.click_position(600, 1800)
                 print('战斗结束\n')
+                PageHelper().back()
                 return True
             # 如果还没结束就1秒后再等等
             time.sleep(1)
