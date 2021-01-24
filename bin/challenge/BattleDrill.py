@@ -77,7 +77,7 @@ class BattleDrill:
 
     def do_position(self):
         print('开始[抢位赛] ... ')
-        self.adb.click_position(800, 1000)
+        self.adb.click_position(800, 1000, wait_time=1)
 
         fight_result = True
         while True:
