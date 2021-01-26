@@ -26,11 +26,12 @@ class Defend:
             started = self.adb.wait('images/defend/start.png', max_wait_time=2).click()
             if started:
                 started_num = started_num + 1
+                swiped_num = 0
                 self.adb.wait('images/defend/pick-people.png').click()
                 self.adb.wait('images/defend/start-confirm.png').click()
                 print('开始驻守 + %d' % started_num)
                 continue
-            if swiped_num >= 4:
+            if swiped_num >= 2:
                 print('应该没有待驻守任务了, 结束')
                 PageHelper().back()
                 break
