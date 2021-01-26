@@ -4,7 +4,8 @@ import time
 
 import cv2
 
-from commons import PathUtils, ConfigUtils
+from commons import PathUtils
+from commons.ConfigUtils import Config
 from commons.Location import Location
 from commons.Timer import Timer
 
@@ -19,11 +20,10 @@ class AutoAdb:
 
     def __init__(self):
         self.adb_path = PathUtils.get_work_dir() + '/adb/adb.exe'
-        self.exec('connect %s' % ConfigUtils.get('adb_host_port'))
+        self.exec('connect %s' % Config.device_location())
 
     def exec(self, raw_command):
-        adb_host_port = ConfigUtils.get('adb_host_port')
-        command = '%s -s %s %s' % (self.adb_path, adb_host_port, raw_command)
+        command = '%s -s %s %s' % (self.adb_path, Config.device_location(), raw_command)
         res = os.popen(command)
         return res.buffer.read().decode('utf-8').strip()
 

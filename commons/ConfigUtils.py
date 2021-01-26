@@ -6,6 +6,13 @@ from commons import PathUtils
 from commons.Singleton import Singleton
 
 
+class Config:
+    # 设备地址
+    @staticmethod
+    def device_location():
+        return get('device_location')
+
+
 # 读取配置文件
 def get(key, section='default', fallback=None):
     cp = ConfigParserHolder().get()

@@ -1,6 +1,6 @@
 import subprocess
 
-from commons import ConfigUtils
+from commons.ConfigUtils import Config
 
 
 def test_device():
@@ -21,7 +21,7 @@ def test_device():
 
 
 def check_link(auto_adb):
-    adb_host_port = ConfigUtils.get('adb_host_port')
+    adb_host_port = Config.device_location()
     print('检测[%s]设备连接状态 >>>' % adb_host_port)
 
     auto_adb.exec('connect %s' % adb_host_port)
