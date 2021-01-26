@@ -5,7 +5,7 @@ import time
 import cv2
 
 from commons import PathUtils
-from commons.ConfigUtils import Config
+from commons.Config import Config
 from commons.Location import Location
 from commons.Timer import Timer
 

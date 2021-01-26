@@ -1,6 +1,6 @@
 import subprocess
 
-from commons.ConfigUtils import Config
+from commons.Config import Config
 
 
 def test_device():

@@ -1,9 +1,10 @@
 import time
-from random import choice
 
 from bin.FightHelper import FightHelper
 from bin.PageHelper import PageHelper
+from commons import RandomUtils
 from commons.AutoAdb import AutoAdb
+from commons.Config import Config
 
 
 class GoodPrepare:
@@ -69,7 +70,7 @@ class GoodPrepare:
                 return True
 
             pos_x = 900
-            pox_y = choice([300, 600, 900, 1200, 1500])
+            pox_y = RandomUtils.super_choice([300, 600, 900, 1200, 1500], Config.PickFlag.good_prepare_item())
             print('随机选择一项: pos_x:%d, pos_y:%d' % (pos_x, pox_y))
             self.adb.click_position(pos_x, pox_y)
 
@@ -98,7 +99,7 @@ class GoodPrepare:
                 return True
 
             pos_x = 900
-            pox_y = choice([300, 600, 900])
+            pox_y = RandomUtils.super_choice([300, 600, 900], Config.PickFlag.good_prepare_work())
             print('随机选择一项: pos_x:%d, pos_y:%d' % (pos_x, pox_y))
             self.adb.click_position(pos_x, pox_y)
 
