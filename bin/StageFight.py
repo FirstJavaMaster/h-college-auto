@@ -6,7 +6,7 @@ from commons.AutoAdb import AutoAdb
 from commons.Timer import Timer
 
 
-class FightStage:
+class StageFight:
     adb = AutoAdb()
 
     def run(self):
@@ -28,4 +28,4 @@ class FightStage:
 
 
 if __name__ == '__main__':
-    FightStage().run()
+    StageFight().run()
