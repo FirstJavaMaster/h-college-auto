@@ -16,7 +16,7 @@ class StageFight:
         timer = Timer()
         while True:
             if not self.adb.click('images/stage-fight/fight-boss.png'):
-                print('\r寻敌中 ... %s' % timer.get_duration_string(), end='', flush=True)
+                print('\r寻敌中 ... %s ' % timer.get_duration_string(), end='', flush=True)
                 time.sleep(1)
                 continue
 
