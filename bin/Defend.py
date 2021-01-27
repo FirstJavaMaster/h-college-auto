@@ -41,8 +41,8 @@ class Defend:
         # 检查额外奖励
         extra_award_num = 0
         while not self.adb.check('images/defend/extra-award-none.png'):
-            # todo 点击固定位置 坐标待确定
-            self.adb.click_position(200, 900)
+            # 点击固定位置
+            self.adb.click_position(100, 1600)
             self.adb.wait('images/defend/extra-award-take-confirm.png').click(1)
             extra_award_num = extra_award_num + 1
             print('额外奖励 + ', extra_award_num)
