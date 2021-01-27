@@ -91,7 +91,7 @@ class BattleDrill:
             if fight_result:
                 self.adb.click_position(500, 500)
             else:  # 如果战斗失败, 则点击刷新按钮更换对手, 并点击第二敌人位置
-                self.adb.wait('images/challenge/position/flush.png').click()
+                self.adb.wait('images/challenge/position/flush.png').click(1)
                 self.adb.click_position(500, 900)
 
             # 如果提示购买 则结束抢位赛
