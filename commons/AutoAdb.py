@@ -30,8 +30,9 @@ class AutoAdb:
     def screen_cap(self):
         self.exec('exec-out screencap -p > ' + self.screen_pic_path)
 
-    def get_location(self, *temp_rel_path_list, threshold=threshold):
-        self.screen_cap()
+    def get_location(self, *temp_rel_path_list, threshold=threshold, new_screenshot=True):
+        if new_screenshot:
+            self.screen_cap()
         sp_gray = cv2.imread(self.screen_pic_path, cv2.COLOR_BGR2BGRA)
 
         for temp_rel_path in temp_rel_path_list:
@@ -49,12 +50,12 @@ class AutoAdb:
             return Location(self, temp_rel_path, x, y)
         return None
 
-    def check(self, *temp_rel_path_list, threshold=threshold):
-        loc = self.get_location(*temp_rel_path_list, threshold=threshold)
+    def check(self, *temp_rel_path_list, threshold=threshold, new_screenshot=True):
+        loc = self.get_location(*temp_rel_path_list, threshold=threshold, new_screenshot=new_screenshot)
         return loc is not None
 
-    def click(self, *temp_rel_path, threshold=threshold, wait_time=click_wait_time):
-        loc = self.get_location(*temp_rel_path, threshold=threshold)
+    def click(self, *temp_rel_path, threshold=threshold, wait_time=click_wait_time, new_screenshot=True):
+        loc = self.get_location(*temp_rel_path, threshold=threshold, new_screenshot=new_screenshot)
         if loc is None:
             return False
         return loc.click(wait_time)
