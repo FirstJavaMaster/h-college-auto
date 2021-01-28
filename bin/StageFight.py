@@ -10,8 +10,8 @@ class StageFight:
     adb = AutoAdb()
 
     def run(self):
-        if not PageHelper().go_to_fight_page():
-            return
+        # if not PageHelper().go_to_fight_page():
+        #     return
 
         timer = Timer()
         while True:

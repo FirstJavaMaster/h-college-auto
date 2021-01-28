@@ -93,6 +93,11 @@ class BattleDrill:
             else:  # 如果战斗失败, 则点击刷新按钮更换对手, 并点击第二敌人位置
                 self.adb.wait('images/challenge/position/flush.png').click(1)
                 self.adb.click_position(500, 900)
+            # 如果未进入战斗, 则可能是"正在被挑战", 继续循环
+            if self.adb.wait('images/challenge/position/flush.png', max_wait_time=1).is_valuable():
+                print('正在被挑战, 稍等继续...')
+                time.sleep(3)
+                continue
 
             # 如果提示购买 则结束抢位赛
             if self.adb.check('images/challenge/position/none-chance-need-money-text.png'):
