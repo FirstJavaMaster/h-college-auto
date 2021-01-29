@@ -33,7 +33,6 @@ class Defend:
                 continue
             if swiped_num >= 2:
                 print('没有待驻守任务了')
-                PageHelper().back()
                 break
             self.adb.swipe(400, 1400, 400, 600)
             time.sleep(1)
@@ -43,6 +42,7 @@ class Defend:
         while True:
             if self.adb.check('images/defend/extra-award-none.png'):
                 print('没有额外奖励了')
+                PageHelper().back()
                 break
             # 点击固定位置
             self.adb.click_position(100, 1600)
