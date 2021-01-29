@@ -66,25 +66,16 @@ class AutoAdb:
     def swipe(self, start_x, start_y, end_x, end_y, duration=1500):
         self.exec('shell input swipe %d %d %d %d %d' % (start_x, start_y, end_x, end_y, duration))
 
-    def wait(self, *temp_rel_path, threshold=threshold, max_wait_time=None, episode=None):
+    def wait(self, *temp_rel_path, threshold=threshold, max_wait_time=None):
         timer = Timer()
         none_loc = Location(self, None, None, None)
         while True:
             duration = timer.get_duration()
-            print('\r >>> wait %s ... %ds ' % (temp_rel_path, duration), end='')
+            print('\r>>> wait %s ... %ds ' % (temp_rel_path, duration), end='', flush=True)
 
             if max_wait_time is not None and 0 < max_wait_time < duration:
                 print(' ×', flush=True)
                 return none_loc
-
-            if episode is not None:
-                try:
-                    res = episode()
-                    if res is not None and not res:
-                        return none_loc
-                except Exception as e:
-                    print('过程方法执行异常')
-                    print(e)
 
             loc = self.get_location(*temp_rel_path, threshold=threshold)
             if loc is None:
