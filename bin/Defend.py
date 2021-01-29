@@ -40,7 +40,10 @@ class Defend:
             swiped_num = swiped_num + 1
         # 检查额外奖励
         extra_award_num = 0
-        while not self.adb.check('images/defend/extra-award-none.png'):
+        while True:
+            if self.adb.check('images/defend/extra-award-none.png'):
+                print('没有额外奖励了')
+                break
             # 点击固定位置
             self.adb.click_position(100, 1600)
             self.adb.wait('images/defend/extra-award-take-confirm.png').click(1)

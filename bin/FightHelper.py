@@ -27,7 +27,7 @@ class FightHelper:
         # 已经进入战斗
         timer = Timer()
         while True:
-            print('\r战斗进行中 ... %s ' % timer.get_duration_string(), end='')
+            print('\r战斗进行中 ... %s ' % timer.get_duration_string(), end='', flush=True)
             finish_result = self.__finish_check__()
             if finish_result is None:
                 time.sleep(1)
