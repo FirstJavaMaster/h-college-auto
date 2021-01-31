@@ -87,12 +87,10 @@ class BattleDrill:
                 print('次数耗尽. [抢位赛]结束!')
                 PageHelper().back()
                 return True
-            # 如果战斗成功, 则点击第一敌人位置
-            if fight_result:
-                self.adb.click_position(500, 500)
-            else:  # 如果战斗失败, 则点击刷新按钮更换对手, 并点击第二敌人位置
+            # 如果战斗失败, 则点击刷新按钮更换对手
+            if not fight_result:
                 self.adb.wait('images/challenge/position/flush.png').click(1)
-                self.adb.click_position(500, 900)
+            self.adb.click_position(500, 500)
             # 如果未进入战斗, 则可能是"正在被挑战", 继续循环
             if self.adb.wait('images/challenge/position/flush.png', max_wait_time=1).is_valuable():
                 print('正在被挑战, 稍等继续...')
