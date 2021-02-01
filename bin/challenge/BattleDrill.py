@@ -82,7 +82,7 @@ class BattleDrill:
         fight_result = True
         while True:
             # 检查剩余次数
-            none_chance = self.adb.check('images/challenge/position/none-chance.png', threshold=0.999)
+            none_chance = self.adb.check('images/challenge/position/none-chance.png', threshold=0.99)
             if none_chance:
                 print('次数耗尽. [抢位赛]结束!')
                 PageHelper().back()
@@ -91,16 +91,17 @@ class BattleDrill:
             if not fight_result:
                 self.adb.wait('images/challenge/position/flush.png').click(1)
             self.adb.click_position(500, 500)
+            # 如果提示购买 则结束抢位赛
+            if self.adb.check('images/challenge/position/none-chance-need-money-text.png'):
+                print('次数耗尽. [抢位赛]结束!')
+                PageHelper().back(2)
+                return True
             # 如果未进入战斗, 则可能是"正在被挑战", 继续循环
             if self.adb.wait('images/challenge/position/flush.png', max_wait_time=1).is_valuable():
                 print('正在被挑战, 稍等继续...')
                 time.sleep(3)
                 continue
 
-            # 如果提示购买 则结束抢位赛
-            if self.adb.check('images/challenge/position/none-chance-need-money-text.png'):
-                PageHelper().back(2)
-                return True
             fight_result = FightHelper().fight()
             # 战斗结束后等待一会儿, 让页面动画结束
             time.sleep(1)
