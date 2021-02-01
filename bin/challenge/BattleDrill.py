@@ -116,8 +116,19 @@ class BattleDrill:
             print('休赛期. 结束[团队赛]!')
             PageHelper().back()
             return True
-        # todo 比赛
-        pass
+        # 比赛
+        while True:
+            # 先判断是否还有机会
+            if self.adb.check('images/challenge/team/none-chance.png', threshold=0.999):
+                break
+            # 点击 前往对战 按钮
+            self.adb.click('images/challenge/team/go-fight.png', new_screenshot=False)
+            # 点击按钮后如果没进入确认页面, 则说明已经没有机会了
+            if not self.adb.wait('images/challenge/team/fight-confirm.png', max_wait_time=3).click():
+                break
+            # 进入战斗领域
+            FightHelper().fight()
+        print('机会已经耗尽, 结束团队赛')
 
 
 if __name__ == '__main__':

@@ -11,7 +11,8 @@ class FightHelper:
     def fight(self):
         print('正在进入战斗 ... ')
         confirm_list = ['images/fight/confirm.png', 'images/fight/confirm-1.png',
-                        'images/fight/confirm-2.png', 'images/fight/confirm-3.png']
+                        'images/fight/confirm-2.png', 'images/fight/confirm-3.png',
+                        'images/fight/confirm-team-game-lock-team.png']
         # 战斗进入阶段
         while True:
             # 有确认按钮 则点击按钮
@@ -45,7 +46,7 @@ class FightHelper:
     def __finish_check__(self, new_screenshot=True):
         finish_list_success = ['images/fight/finish-success.png']
         finish_list_fail = ['images/fight/finish-fail.png', 'images/fight/finish-fail-1.png']
-        finish_list = ['images/fight/finish.png']
+        finish_list = ['images/fight/finish.png', 'images/fight/finish-1.png']
 
         if self.adb.check(*finish_list_success, new_screenshot=new_screenshot):
             return True
