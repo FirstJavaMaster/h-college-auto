@@ -1,3 +1,4 @@
+import random
 import time
 
 from bin.FightHelper import FightHelper
@@ -90,7 +91,8 @@ class BattleDrill:
             # 如果战斗失败, 则点击刷新按钮更换对手
             if not fight_result:
                 self.adb.wait('images/challenge/position/flush.png').click(1)
-            self.adb.click_position(500, 500)
+            # 随机选择对手, 避开游戏bug: 有时某个对手点击没反应
+            self.adb.click_position(500, random.choice([500, 900]))
             # 如果提示购买 则结束抢位赛
             if self.adb.check('images/challenge/position/none-chance-need-money-text.png'):
                 print('次数耗尽. [抢位赛]结束!')
@@ -112,6 +114,7 @@ class BattleDrill:
 
         # 点击领取奖励
         self.adb.wait('images/challenge/team/take-award.png').click()
+        # todo 奖励领取后的点击动作待补充
         # 判断是否休赛
         if self.adb.check('images/challenge/team/break-time.png'):
             print('休赛期. 结束[团队赛]!')
@@ -130,6 +133,7 @@ class BattleDrill:
             # 进入战斗领域
             FightHelper().fight()
         print('机会已经耗尽, 结束团队赛')
+        PageHelper().back()
 
 
 if __name__ == '__main__':
