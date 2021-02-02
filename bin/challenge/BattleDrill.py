@@ -114,7 +114,8 @@ class BattleDrill:
 
         # 点击领取奖励
         self.adb.wait('images/challenge/team/take-award.png').click()
-        # todo 奖励领取后的点击动作待补充
+        # 奖励领取后的确认
+        self.adb.wait('images/challenge/team/take-award-confirm.png', max_wait_time=2).click()
         # 判断是否休赛
         if self.adb.check('images/challenge/team/break-time.png'):
             print('休赛期. 结束[团队赛]!')
