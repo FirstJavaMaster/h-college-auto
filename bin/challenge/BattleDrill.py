@@ -129,7 +129,7 @@ class BattleDrill:
             # 点击 前往对战 按钮
             self.adb.click('images/challenge/team/go-fight.png', new_screenshot=False)
             # 点击按钮后如果没进入确认页面, 则说明已经没有机会了
-            if not self.adb.wait('images/challenge/team/fight-confirm.png', max_wait_time=3).click():
+            if not self.adb.wait('images/challenge/team/fight-confirm.png', max_wait_time=5).click():
                 break
             # 进入战斗领域
             FightHelper().fight()
