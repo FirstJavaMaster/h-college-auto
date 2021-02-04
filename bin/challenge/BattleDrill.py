@@ -1,9 +1,9 @@
 import random
-import time
 
 from bin.FightHelper import FightHelper
 from bin.PageHelper import PageHelper
 from commons.AutoAdb import AutoAdb
+from commons.Timer import Timer
 
 
 class BattleDrill:
@@ -78,9 +78,10 @@ class BattleDrill:
 
     def do_position(self):
         print('开始[抢位赛] ... ')
-        self.adb.click_position(800, 1000, wait_time=1)
+        self.adb.click_position(800, 1000)
 
-        fight_result = True
+        last_fight_result = True
+        be_challenged_num = 0
         while True:
             # 检查剩余次数
             none_chance = self.adb.check('images/challenge/position/none-chance.png', threshold=0.99)
@@ -89,9 +90,9 @@ class BattleDrill:
                 PageHelper().back()
                 return True
             # 如果战斗失败, 则点击刷新按钮更换对手
-            if not fight_result:
+            if not last_fight_result:
                 self.adb.wait('images/challenge/position/flush.png').click(1)
-            # 随机选择对手, 避开游戏bug: 有时某个对手点击没反应
+            # 随机选择对手
             self.adb.click_position(500, random.choice([500, 900]))
             # 如果提示购买 则结束抢位赛
             if self.adb.check('images/challenge/position/none-chance-need-money-text.png'):
@@ -100,13 +101,20 @@ class BattleDrill:
                 return True
             # 如果未进入战斗, 则可能是"正在被挑战", 继续循环
             if self.adb.wait('images/challenge/position/flush.png', max_wait_time=1).is_valuable():
+                be_challenged_num += 1
+                # 如果一直"无法进入战斗", 则可能是遇到游戏bug了
+                if be_challenged_num >= 3:
+                    print('可能遇到了点击失效的bug, 将会退出页面重进...')
+                    PageHelper().back()
+                    self.adb.click_position(800, 1000)
+                    continue
+                # 如果是被挑战, 则等待一段时间
                 print('正在被挑战, 稍等继续...')
-                time.sleep(3)
+                Timer.countdown(5)
                 continue
-
-            fight_result = FightHelper().fight()
-            # 战斗结束后等待一会儿, 让页面动画结束
-            time.sleep(1)
+            # 开始战斗
+            be_challenged_num = 0
+            last_fight_result = FightHelper().fight()
 
     def do_team(self):
         print('开始[团队赛] ... ')
