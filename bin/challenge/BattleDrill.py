@@ -1,4 +1,5 @@
 import random
+import time
 
 from bin.FightHelper import FightHelper
 from bin.PageHelper import PageHelper
@@ -115,6 +116,7 @@ class BattleDrill:
             # 开始战斗
             be_challenged_num = 0
             last_fight_result = FightHelper().fight()
+            time.sleep(1)
 
     def do_team(self):
         print('开始[团队赛] ... ')
