@@ -27,8 +27,8 @@ class Defend:
             if started:
                 started_num = started_num + 1
                 swiped_num = 0
-                self.adb.wait('images/defend/pick-people.png').click()
-                self.adb.wait('images/defend/start-confirm.png').click()
+                self.adb.wait('images/defend/pick-people.png').click(wait_time=0.5)
+                self.adb.click('images/defend/start-confirm.png', new_screenshot=False)
                 print('开始驻守 + %d' % started_num)
                 continue
             if swiped_num >= 2:
